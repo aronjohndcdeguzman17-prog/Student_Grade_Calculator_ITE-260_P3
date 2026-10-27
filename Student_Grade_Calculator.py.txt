@@ -1,0 +1,95 @@
+def get_valid_grade(subject):
+    while True:
+        grade_input = input("Enter grade for " + subject + " (0-100): ")
+
+        if grade_input.strip() == "":
+            print("Error: Grade cannot be empty.")
+        else:
+            try:
+                grade = float(grade_input)
+
+                if grade >= 0 and grade <= 100:
+                    return grade
+                else:
+                    print("Error: Grade must be from 0 to 100.")
+
+            except ValueError:
+                print("Error: Please enter a valid number.")
+
+
+def get_equivalent_grade(average):
+    if average >= 97:
+        return 1.00
+    elif average >= 94:
+        return 1.25
+    elif average >= 91:
+        return 1.50
+    elif average >= 88:
+        return 1.75
+    elif average >= 85:
+        return 2.00
+    elif average >= 82:
+        return 2.25
+    elif average >= 79:
+        return 2.50
+    elif average >= 76:
+        return 2.75
+    elif average >= 75:
+        return 3.00
+    else:
+        return 5.00
+
+
+def main():
+    print("===================================")
+    print("      STUDENT GRADE CALCULATOR")
+    print("      PHINMA ARAULLO UNIVERSITY")
+    print("===================================")
+
+    name = input("Enter student name: ").strip()
+
+    while name == "":
+        print("Error: Name cannot be empty.")
+        name = input("Enter student name: ").strip()
+
+    subjects = [
+        "GEN-001",
+        "GEN-002",
+        "GEN-006",
+        "MAT-152",
+        "ITE-260",
+        "PED-030",
+        "ITE-366"
+    ]
+
+    grades = []
+
+    for subject in subjects:
+        grade = get_valid_grade(subject)
+        grades.append(grade)
+
+    total = sum(grades)
+    average = total / len(grades)
+    equivalent = get_equivalent_grade(average)
+
+    if average >= 75:
+        status = "PASSED"
+    else:
+        status = "FAILED"
+
+    print("\n========== GRADE REPORT ==========")
+    print("Student Name:", name)
+    print("-----------------------------------")
+
+    for i in range(len(subjects)):
+        print(subjects[i] + ": " + str(format(grades[i], ".2f")))
+
+    print("-----------------------------------")
+    print("Total Grades:", format(total, ".2f"))
+    print("Average Percentage:", format(average, ".2f") + "%")
+    print("Equivalent Grade:", format(equivalent, ".2f"))
+    print("Final Status:", status)
+    print("===================================")
+
+
+main()
